@@ -3,6 +3,11 @@ import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * snake class describe the snake in the game .
+ * @author fat-man
+ *
+ */
 public class Snake {
 	//this array list content the location of snake body points .
 	private ArrayList<Integer> pointx = new ArrayList<Integer>();

@@ -4,6 +4,12 @@ import java.awt.event.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 
+ * class describe the land of game .
+ * @author fat-man
+ *
+ */
 public class GameLand extends JPanel {
 	//died points .
 	private ArrayList <Integer> diedPointX = new ArrayList <Integer> ();

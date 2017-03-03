@@ -4,35 +4,37 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Snake {
-	//this array list is 
-	
+	//this array list content the location of snake body points .
 	private ArrayList<Integer> pointx = new ArrayList<Integer>();
 	private ArrayList<Integer> pointy = new ArrayList<Integer>();
 	
+	// detect snake movement direction .
 	private boolean isMoveUp = false;
 	private boolean isMoveDown = false;
 	private boolean isMoveRight = true;
 	private boolean isMoveLeft = false;
 	
+	//snake pause mode and die mode .
 	public boolean alive =true;
 	public boolean pause=false;
 	
+	//the maximum x , and y that thw sanke can retch to . 
 	private  final int BIGX = ContentSize.getInfo().getPoint() * 20;
 	private  final int BIGY = ContentSize.getInfo().getPoint() * 18;
 	
+	// apple object : snake should eat .  
 	private Apple apple;
 	
-	public int speed = 100;
 	
-		// the start snake points .
+	
 	public Snake (ArrayList <Integer> diedPointX ,
-			ArrayList <Integer> diedPointY){
+				  ArrayList <Integer> diedPointY){
 		
 		getDefaultLocation();
 		setApple( diedPointX , diedPointY );
 		
 	}
-	
+	//method set the default location of snake in the game .
 	public void getDefaultLocation (){
 		
 		pointx=new ArrayList<Integer>();
@@ -50,7 +52,7 @@ public class Snake {
 		}
 	}
 	
-	
+	// method draw snake in the game window . 
 	public void drawSnake (Graphics g , 
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY
@@ -78,6 +80,7 @@ public class Snake {
 			
 		}
 	}
+	// set new Apple depend on snake location . 
 	private void setApple(
 							ArrayList <Integer >diedPointX ,
 							ArrayList <Integer >diedPointY){
@@ -91,16 +94,23 @@ public class Snake {
 		}
 		apple = new Apple(Xpoints,Ypoints);
 	}
+	//the Algrithom of new step in snake movement .
 	private void step (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
+		
+		//check if the snake die or not 
 		die(diedPointX , diedPointX  );
-		if (this.pointx.get(0)==apple.getX()&&this.pointy.get(0)==apple.getY()){
+		
+		//check if the snake eat the apple or not .
+		if (this.pointx.get(0) == apple.getX() &&
+			this.pointy.get(0) == apple.getY() ){
+			
 			eat();
-			setApple(diedPointX ,diedPointY);
+			setApple(diedPointX ,diedPointY);//set new apple .
 		}
 		
-		for(int i =pointx.size()-1;i>0;i--){
+		for(int i = pointx.size() - 1 ; i > 0 ; i-- ){
 			pointx.set(i,pointx.get(i-1));
 			pointy.set(i,pointy.get(i-1));
 			
@@ -108,19 +118,31 @@ public class Snake {
 		
 	}
 	
-	
-	
+	/**
+	 * the method made to describe the snake move up movement  .
+	 * 
+	 * @param deidPointX  and diedpointY to check if the step in die point or 
+	 * eat point . 
+	 */
+
 	public void moveUp(
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
+		//made step to the snake .
 		step(diedPointX,diedPointY);
-		
+		//check if this step make my snake in the highest point or not 
 		if (pointy.get(0)<ContentSize.getInfo().getPoint())
-			pointy.set(0,BIGY);
+			pointy.set(0,BIGY);//if true set the head to the lowest point .
 		else
-			pointy.set(0,pointy.get(0)-ContentSize.getInfo().getPoint());
+			pointy.set(0,pointy.get(0)-ContentSize.getInfo().getPoint());//add step to the head to up .
 	}
-	
+
+	/**
+	 * the method made to describe the snake move Down movement  .
+	 * 
+	 * @param deidPointX  and diedpointY to check if the step in die point or 
+	 * eat point . 
+	 */
 	public void moveDown(
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
@@ -133,7 +155,13 @@ public class Snake {
 			pointy.set(0,pointy.get(0)+ContentSize.getInfo().getPoint());
 		
 	}
-	
+
+	/**
+	 * the method made to describe the snake move Right movement  .
+	 * 
+	 * @param deidPointX  and diedpointY to check if the step in die point or 
+	 * eat point . 
+	 */
 	public void moveRight (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
@@ -146,7 +174,13 @@ public class Snake {
 			
 		
 	}
-	
+
+	/**
+	 * the method made to describe the snake move left movement  .
+	 * 
+	 * @param deidPointX  and diedpointY to check if the step in die point or 
+	 * eat point . 
+	 */
 	public void moveLeft (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
@@ -159,20 +193,39 @@ public class Snake {
 		
 	}
 
+	/**
+	 * eat the apple .
+	 */
 	private void eat (){
 		
 		pointx.add(0,apple.getX());
 		pointy.add(0,apple.getY());
 	}
+
+	/**
+	 * 
+	 *  make change the snake mode to stop .
+	 */
 	public void stop(){
 		this.pause=true;
 	}
+
+	/**
+	 * the method made to describe the snake move up movement  .
+	 * 
+	 * @param deidPointX  and diedpointY to check if the step in die point or 
+	 * eat point . 
+	 */
 	public	void die (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
+		
+		//use in test the head in die point or not
 		int testx=pointx.get(0);
 		int testy=pointy.get(0);
-		for(int i =1;i<pointx.size();i++){
+		
+		//checking diepoint 
+		for(int i = 1 ; i < pointx.size() ; i++ ){
 			if (testx==pointx.get(i)&&testy==pointy.get(i)){
 				alive=false;
 				break;
@@ -181,7 +234,7 @@ public class Snake {
 			
 		}
 		
-		for(int i =1;i<diedPointX.size();i++){
+		for(int i = 1 ; i < diedPointX.size() ; i++ ){
 			if (testx==diedPointX.get(i)&&testy==diedPointY.get(i)){
 				alive=false;
 				break;
@@ -192,7 +245,10 @@ public class Snake {
 		
 	
 	}
-	
+
+	/**
+	 * make snake move down
+	 */
 	public void  setDown(){
 		this.pause=false;
 		
@@ -205,7 +261,10 @@ public class Snake {
 		
 		}
 	}
-	
+
+	/**
+	 * make snake move Up
+	 */
 	public void  setUp(){
 		this.pause=false;
 		
@@ -218,7 +277,10 @@ public class Snake {
 		
 		}
 	}
-	
+
+	/**
+	 * make snake move Right
+	 */
 	public void  setRight(){
 		this.pause=false;
 		
@@ -232,7 +294,10 @@ public class Snake {
 		}
 	
 	}
-	
+
+	/**
+	 * make snake move Left
+	 */
 	public void  setLeft(){
 		
 		this.pause=false;
@@ -246,9 +311,14 @@ public class Snake {
 		
 		}
 	}
-	
-	public void  SnakeBehave    (ArrayList <Integer >diedPointX 
-								,
+
+	/**
+	 * the method made to describe the snake movement  .
+	 * 
+	 * @param deidPointX  and diedpointY to check if the step in die point or 
+	 * eat point . 
+	 */
+	public void  SnakeBehave    (ArrayList <Integer >diedPointX ,
 								ArrayList <Integer >diedPointY   ){
 		
 			if (isMoveDown)

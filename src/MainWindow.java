@@ -121,9 +121,8 @@ public class MainWindow extends JFrame {
 		showScore = new JLabel(explenation);
 
 		// show Score
-		showScore.setLocation(550, 200);
+		showScore.setLocation(950, 500);
 		showScore.setSize(120, 120);
-		showScore.setForeground(Color.WHITE);
 		
 		//handle the keyboard action .
 		addKeyListener(new KeyAdapter() {
@@ -178,8 +177,10 @@ public class MainWindow extends JFrame {
 		// timer show the score .
 		Timer reShow = new Timer(10, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				explenation = "<html>score :" + score + "<per><br>move the snake:(use diracton keys )"
-						+ "<br> press space to pause and resume</html> ";
+				explenation = "<html>score :" 
+							+ score 
+							+ "<per><br>move the snake:(use diracton keys )"
+							+ "<br> press space to pause and resume</html> ";
 				showScore.setText(explenation);
 			}
 		});

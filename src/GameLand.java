@@ -18,8 +18,11 @@ public class GameLand extends JPanel {
 	private Snake snake ;//snake object . 
 	
 	private JLabel gameOver;//label to show game over if the snake die .
+	private int score ;
 	
 	public GameLand (){
+		
+		this.score = 0;
 		
 		//getting the height and width  values .
 		ContentSize sizes =ContentSize.getInfo();
@@ -69,6 +72,13 @@ public class GameLand extends JPanel {
 	public Snake getSnake (){	
 		return this.snake;
 	}
+	
+	/**
+	 * @return the  score of the game  .
+	 */
+	public int getScore (){	
+		return this.score;
+	}
 
 	/**
 	 * @param Graphics the Graphics  to draw .
@@ -79,8 +89,13 @@ public class GameLand extends JPanel {
 		super.paintComponent(g  );
 		
 		snake.drawSnake(g , diedPointX , diedPointY);//snake draw in the land .
-		snake.SnakeBehave(diedPointX , diedPointY);//snake make normal behave .
-	
+		
+		boolean isEat = snake.SnakeBehave(diedPointX , diedPointY);//snake make normal behave .
+		
+		//add to score if the snake is eat . 
+		if (isEat){
+			this.score++;
+		}
 	}
 	
 	

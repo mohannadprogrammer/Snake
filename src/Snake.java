@@ -135,10 +135,15 @@ public class Snake {
 		}
 		apple = new Apple(Xpoints,Ypoints);
 	}
-	//the Algrithom of new step in snake movement .
-	private void step (
+	/*
+	 * the Algrithom of new step in snake movement .
+	 *@return isEat or not .
+	 */
+	private boolean step (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
+		
+		boolean isEat = false ;
 		
 		//check if the snake die or not 
 		die(diedPointX , diedPointX  );
@@ -147,6 +152,7 @@ public class Snake {
 		if (this.pointx.get(0) == apple.getX() &&
 			this.pointy.get(0) == apple.getY() ){
 			
+			isEat =true ;
 			eat();
 			setApple(diedPointX ,diedPointY);//set new apple .
 		}
@@ -156,22 +162,22 @@ public class Snake {
 			pointy.set(i,pointy.get(i-1));
 			
 		}
-		
+		return isEat;
 	}
 	
 	/**
 	 * the method made to describe the snake move up movement  .
-	 * 
+	 * @return isEat or not 
 	 * @param deidPointX  and diedpointY to check if the step in die point or 
 	 * eat point . 
 	 */
 
-	public void moveUp(
+	public boolean moveUp(
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
 		
 		//made step to the snake .
-		step(diedPointX,diedPointY);
+		boolean isEat = step(diedPointX,diedPointY);
 		
 		//size to used in get information about point value.
 		ContentSize sizes = ContentSize.getInfo();
@@ -185,6 +191,7 @@ public class Snake {
 		else
 			
 			pointy.set(0,y_move);//add step to the head to up .
+		return isEat ;
 	}
 
 	/**
@@ -193,12 +200,12 @@ public class Snake {
 	 * @param deidPointX  and diedpointY to check if the step in die point or 
 	 * eat point . 
 	 */
-	public void moveDown(
+	public boolean moveDown(
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
 		
 		
-		step(diedPointX,diedPointY);//made step to the snake .
+		boolean isEat = step(diedPointX,diedPointY);//made step to the snake .
 		
 		//size to used in get information about point value.
 		ContentSize sizes = ContentSize.getInfo();
@@ -213,6 +220,7 @@ public class Snake {
 			
 			pointy.set(0,x_move );// move head down .
 		
+		return isEat ;
 	}
 
 	/**
@@ -221,12 +229,12 @@ public class Snake {
 	 * @param deidPointX  and diedpointY to check if the step in die point or 
 	 * eat point . 
 	 */
-	public void moveRight (
+	public boolean moveRight (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
 		
 		
-		step(diedPointX,diedPointY);//made step to the snake .
+		boolean isEat = step(diedPointX,diedPointY);//made step to the snake .
 		
 		ContentSize sizes = ContentSize.getInfo();//size to used in get information about point value.
 		int y_move =pointx.get(0) + sizes.getPoint();
@@ -240,7 +248,7 @@ public class Snake {
 			
 			pointx.set(0,y_move);// move head Right .
 			
-		
+		return isEat;
 	}
 
 	/**
@@ -249,11 +257,11 @@ public class Snake {
 	 * @param deidPointX  and diedpointY to check if the step in die point or 
 	 * eat point . 
 	 */
-	public void moveLeft (
+	public boolean  moveLeft (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
 
-		step(diedPointX,diedPointY);//made step to the snake .
+		boolean isEat = step(diedPointX,diedPointY);//made step to the snake .
 		
 		//size to used in get information about point value.
 		ContentSize sizes = ContentSize.getInfo();
@@ -268,6 +276,7 @@ public class Snake {
 			
 			pointx.set(0,x_move);//move head left .
 		
+		return isEat ;
 	}
 
 	/**
@@ -397,16 +406,17 @@ public class Snake {
 	 * @param deidPointX  and diedpointY to check if the step in die point or 
 	 * eat point . 
 	 */
-	public void  SnakeBehave    (ArrayList <Integer >diedPointX ,
+	public boolean  SnakeBehave    (ArrayList <Integer >diedPointX ,
 								ArrayList <Integer >diedPointY   ){
-		
-			if (isMoveDown)
-				this.moveDown(diedPointX , diedPointY );
-			if (isMoveUp)
-				this.moveUp(diedPointX , diedPointY );
-			if (isMoveLeft)
-				this.moveLeft(diedPointX , diedPointY );
-			if(isMoveRight)
-				this.moveRight(diedPointX , diedPointY );
+		boolean isEat =false ;
+		if (isMoveDown)
+			isEat = this.moveDown(diedPointX , diedPointY );
+		if (isMoveUp)
+			isEat = this.moveUp(diedPointX , diedPointY );
+		if (isMoveLeft)
+			isEat = this.moveLeft(diedPointX , diedPointY );
+		if(isMoveRight)
+			isEat = this.moveRight(diedPointX , diedPointY );
+		return isEat;
 	}
 }

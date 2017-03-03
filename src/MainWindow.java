@@ -23,7 +23,6 @@ public class MainWindow extends JFrame {
 	
 	private Container container;
 	
-	private int score =0;
 
 	private JButton[] button = new JButton[3];
 	
@@ -116,8 +115,10 @@ public class MainWindow extends JFrame {
 		gameContent.setVisible(false);
 		gameContent = new JLabel(new ImageIcon("image" + "\\gameback.jpg"));
 		
-		explenation = "<html>score :" + score + "<br>move the snake : (use diracton keys )"
-				+ "<br> press space to pause and resume</html> ";
+		explenation = "<html>score :" 
+						+ land.getScore() 
+						+ "<br>move the snake : (use diracton keys )"
+						+ "<br> press space to pause and resume</html> ";
 		showScore = new JLabel(explenation);
 
 		// show Score
@@ -178,7 +179,7 @@ public class MainWindow extends JFrame {
 		Timer reShow = new Timer(10, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				explenation = "<html>score :" 
-							+ score 
+							+ land.getScore() 
 							+ "<per><br>move the snake:(use diracton keys )"
 							+ "<br> press space to pause and resume</html> ";
 				showScore.setText(explenation);

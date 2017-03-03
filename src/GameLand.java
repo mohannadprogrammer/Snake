@@ -20,8 +20,15 @@ public class GameLand extends JPanel {
 	private JLabel gameOver;//label to show game over if the snake die .
 	
 	public GameLand (){
-		snake = new Snake(diedPointX ,  diedPointY );
-		setBounds(0,0,ContentSize.getInfo().getLandWidth(),ContentSize.getInfo().getLandHeight());
+		
+		//getting the height and width  values .
+		ContentSize sizes =ContentSize.getInfo();
+		int height = sizes.getLandHeight();
+		int width = sizes.getLandWidth();
+		
+		snake = new Snake(diedPointX ,  diedPointY );//set snake object .
+		
+		setBounds(0,0,width,height);//set the land bounds .
 		
 		setBackground(Color.BLACK);
 		gameOver = new JLabel();

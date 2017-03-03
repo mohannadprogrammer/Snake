@@ -50,33 +50,18 @@ public class ContentSize {
 	/**
 	 * @return the tootal_height
 	 */
-	public int getTootal_height() {
+	public int getTootalHeight() {
 		
 		return tootal_height;
 	
 	}
-	/**
-	 * @param tootal_height the tootal_height to set
-	 */
-	public void setTootal_height(int tootal_height) {
-		
-		this.tootal_height = tootal_height;
 	
-	}
 	/**
 	 * @return the tootal_width
 	 */
-	public int getTootal_width() {
+	public int getTootalWidth() {
 		
 		return tootal_width;
-	
-	}
-	/**
-	 * @param tootal_width the tootal_width to set
-	 */
-	public void setTootal_width(int tootal_width) {
-		
-		this.tootal_width = tootal_width;
 	
 	}
 	/**
@@ -87,14 +72,7 @@ public class ContentSize {
 		return point;
 	
 	}
-	/**
-	 * @param point the point to set
-	 */
-	public void setPoint(int point) {
-		
-		this.point = point;
 	
-	}
 	/**
 	 * @return the land_height
 	 */

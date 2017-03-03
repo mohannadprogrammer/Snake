@@ -29,11 +29,15 @@ public class MainWindow extends JFrame {
 	
 	public MainWindow() {
 		super("java snake game ");
+		
+		//getting the height and width  values 
+		ContentSize sizes =ContentSize.getInfo();
+		int height = sizes.getTootalHeight();
+		int width = sizes.getTootalWidth();
+				
+				
 		//set the bound of main window .
-		setBounds(0,
-				0,
-				ContentSize.getInfo().getTootal_width()
-				,ContentSize.getInfo().getTootal_height());
+		setBounds(0,0,width,height);
 		
 		container = getContentPane();//set container object .
 		land = new GameLand();//set land of the game ..
@@ -149,7 +153,10 @@ public class MainWindow extends JFrame {
 					
 					case KeyEvent.VK_SPACE://in case you pressed space .
 						
-						land.getSnake().stop();//set stop mode to snake .
+						//set stop mode to snake .
+						Snake snake =land.getSnake();
+						snake.stop();
+						
 						//check if snake Alive to reset new game .
 						if (!land.getSnake().isAlive()) {
 							

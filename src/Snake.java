@@ -14,14 +14,10 @@ public class Snake {
 	private ArrayList<Integer> pointy = new ArrayList<Integer>();
 	
 	// detect snake movement direction .
-	private boolean isMoveUp = false;
-	private boolean isMoveDown = false;
-	private boolean isMoveRight = true;
-	private boolean isMoveLeft = false;
+	private boolean isMoveUp , isMoveDown , isMoveRight , isMoveLeft ;
 	
 	//snake pause mode and die mode .
-	private boolean alive =true;
-	private boolean pause=false;
+	private boolean alive  , pause;
 	
 	//the maximum x , and y that thw sanke can retch to . 
 	private  final int BIGX = ContentSize.getInfo().getPoint() * 20;
@@ -35,6 +31,16 @@ public class Snake {
 	public Snake (ArrayList <Integer> diedPointX ,
 				  ArrayList <Integer> diedPointY){
 		
+		this.alive=true;
+		this.pause=false;
+		
+		//set the default movement 
+		this.isMoveDown = false ;
+		this.isMoveUp = false ;
+		this.isMoveLeft = false ;
+		this.isMoveRight =true ;
+		
+		//set the default location of the snake .
 		getDefaultLocation();
 		setApple( diedPointX , diedPointY );
 		
@@ -45,38 +51,30 @@ public class Snake {
 	public boolean isAlive() {
 		return alive;
 	}
-	/**
-	 * @param alive the alive to set
-	 */
-	public void setAlive(boolean alive) {
-		this.alive = alive;
-	}
-	/**
+	/*
 	 * @return the pause
 	 */
 	public boolean isPause() {
 		return pause;
 	}
-	/**
-	 * @param pause the pause to set
-	 */
-	public void setPause(boolean pause) {
-		this.pause = pause;
-	}
+	
 	//method set the default location of snake in the game .
 	public void getDefaultLocation (){
 		
 		pointx=new ArrayList<Integer>();
 		pointy= new ArrayList<Integer>();
 		
-		int temp=ContentSize.getInfo().getPoint() * 10;
+		//set Xs default location .
+		ContentSize sizes =ContentSize.getInfo();
+		int number_point_default=10; 
+		int x_default_valuse = sizes.getPoint() * number_point_default;
 		
-		for (int i = 0 ; i < 10 ; i++ ){
+		for (int i = 0 ; i < number_point_default ; i++ ){
+			int y_point_default =sizes.getPoint() * 4;
+			pointx.add(x_default_valuse);
+			pointy.add(y_point_default);
 			
-			pointx.add(temp);
-			pointy.add(ContentSize.getInfo().getPoint() * 4);
-			
-			temp-=ContentSize.getInfo().getPoint() ;
+			x_default_valuse -= sizes.getPoint() ;
 			
 		}
 	}
@@ -92,20 +90,32 @@ public class Snake {
 		for (int i = 1 ; i < this.pointx.size() ; i++){
 			
 			g.setColor(new Color(77,195,77));
-			g.fillOval(pointx.get(i), pointy.get(i),ContentSize.getInfo().getPoint(),ContentSize.getInfo().getPoint());
+			g.fillOval(pointx.get(i) ,
+					pointy.get(i) ,
+					ContentSize.getInfo().getPoint() ,
+					ContentSize.getInfo().getPoint()
+					);
 			
 		}
 		
 		//draw the head ..>>
 		g.setColor(Color.RED);
-		g.fillOval(pointx.get(0), pointy.get(0),ContentSize.getInfo().getPoint(),ContentSize.getInfo().getPoint());
+		g.fillOval(pointx.get(0),
+				pointy.get(0) ,
+				ContentSize.getInfo().getPoint() ,
+				ContentSize.getInfo().getPoint()
+				);
 		
 		apple.drawApple(g);
-		
+		//draw the body of the snake . 
 		for (int i = 0 ; i < diedPointX.size() ; i++ ){
-			
+			ContentSize sizes = ContentSize.getInfo();
 			g.setColor(Color.orange);
-			g.fillRect(diedPointX.get(i), diedPointY.get(i), ContentSize.getInfo().getPoint(), ContentSize.getInfo().getPoint());
+			g.fillRect(diedPointX.get(i),
+					diedPointY.get(i) ,
+					sizes.getPoint() ,
+					sizes.getPoint()
+					);
 			
 		}
 	}
@@ -113,9 +123,11 @@ public class Snake {
 	private void setApple(
 							ArrayList <Integer >diedPointX ,
 							ArrayList <Integer >diedPointY){
-
-		ArrayList <Integer> Xpoints =(ArrayList<Integer>) this.pointx.clone();
-		ArrayList <Integer> Ypoints =(ArrayList<Integer>) this.pointy.clone();
+		//clone the array list of rhte body int Xpoint and Ypoint Variable .
+		ArrayList <Integer> Xpoints =
+					(ArrayList<Integer>) this.pointx.clone();
+		ArrayList <Integer> Ypoints =	
+				(ArrayList<Integer>) this.pointy.clone();
 		
 		for (int i=0;i<diedPointX.size();i++){
 			Xpoints.add(diedPointX.get(i));
@@ -157,13 +169,22 @@ public class Snake {
 	public void moveUp(
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
+		
 		//made step to the snake .
 		step(diedPointX,diedPointY);
+		
+		//size to used in get information about point value.
+		ContentSize sizes = ContentSize.getInfo();
+		int y_move = pointy.get(0) - sizes.getPoint() ;
+		
 		//check if this step make my snake in the highest point or not 
-		if (pointy.get(0)<ContentSize.getInfo().getPoint())
+		if (pointy.get(0) < sizes.getPoint())
+			
 			pointy.set(0,BIGY);//if true set the head to the lowest point .
+		
 		else
-			pointy.set(0,pointy.get(0)-ContentSize.getInfo().getPoint());//add step to the head to up .
+			
+			pointy.set(0,y_move);//add step to the head to up .
 	}
 
 	/**
@@ -176,12 +197,21 @@ public class Snake {
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
 		
-		step(diedPointX , diedPointY );
 		
-		if (pointy.get(0)>=BIGY)
-			pointy.set(0,0);
+		step(diedPointX,diedPointY);//made step to the snake .
+		
+		//size to used in get information about point value.
+		ContentSize sizes = ContentSize.getInfo();
+		int x_move = pointy.get(0) + sizes.getPoint();
+
+		//check if this step make my snake in the lowest point or not
+		if (pointy.get(0) >= BIGY)
+			
+			pointy.set(0,0);//set to the begin of up side
+		
 		else
-			pointy.set(0,pointy.get(0)+ContentSize.getInfo().getPoint());
+			
+			pointy.set(0,x_move );// move head down .
 		
 	}
 
@@ -194,12 +224,21 @@ public class Snake {
 	public void moveRight (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
-		step(diedPointX , diedPointY );
 		
+		
+		step(diedPointX,diedPointY);//made step to the snake .
+		
+		ContentSize sizes = ContentSize.getInfo();//size to used in get information about point value.
+		int y_move =pointx.get(0) + sizes.getPoint();
+
+		//check if this step make my snake in the lowest point or not
 		if (pointx.get(0)>=BIGX)
-			pointx.set(0,0);
+			
+			pointx.set(0,0);//set to the begin of left side 
+		
 		else
-			pointx.set(0,pointx.get(0)+ContentSize.getInfo().getPoint());
+			
+			pointx.set(0,y_move);// move head Right .
 			
 		
 	}
@@ -213,12 +252,21 @@ public class Snake {
 	public void moveLeft (
 			ArrayList <Integer >diedPointX ,
 			ArrayList <Integer >diedPointY){
-		step(diedPointX , diedPointX );
+
+		step(diedPointX,diedPointY);//made step to the snake .
 		
+		//size to used in get information about point value.
+		ContentSize sizes = ContentSize.getInfo();
+		int x_move =pointx.get(0) - sizes.getPoint();
+
+		//check if this step make my snake in the lowest point or not
 		if (pointx.get(0)<10)
-			pointx.set(0,BIGX);
+			
+			pointx.set(0,BIGX);//set to the begin of Right side 
+		
 		else
-			pointx.set(0,pointx.get(0)-ContentSize.getInfo().getPoint());
+			
+			pointx.set(0,x_move);//move head left .
 		
 	}
 
@@ -226,9 +274,10 @@ public class Snake {
 	 * eat the apple .
 	 */
 	private void eat (){
+		//add the apple point to the snake points
 		
-		pointx.add(0,apple.getX());
-		pointy.add(0,apple.getY());
+		pointx.add(0 , apple.getX());
+		pointy.add(0 , apple.getY());
 	}
 
 	/**
@@ -236,6 +285,7 @@ public class Snake {
 	 *  make change the snake mode to stop .
 	 */
 	public void stop(){
+		
 		this.pause=true;
 	}
 

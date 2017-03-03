@@ -16,12 +16,18 @@ public  class Apple  {
 	
 	public Apple (ArrayList <Integer> Xpoints,ArrayList<Integer>  Ypoints){
 		boolean test = false;
+		// the rang of the Apple Xs values .
+		int point_rang =19;
+		
+		//getting the point values .
+		ContentSize sizes =ContentSize.getInfo();
+		int point = sizes.getPoint();
 		
 		do{
 			
 			//detect the location of the apple randomly .
-			this.x=((int)(Math.random()*19))*ContentSize.getInfo().getPoint();
-			this.y=((int)(Math.random()*19))*ContentSize.getInfo().getPoint();
+			this.x=((int)(Math.random() * point_rang )) * point;
+			this.y=((int)(Math.random() * point_rang )) * point;
 			
 			//check if the loaction contontaint of any of snake location or not . 
 			for (int i = 0 ; i < Xpoints.size() ; i++ ){
@@ -84,8 +90,14 @@ public  class Apple  {
 	 * @param Graphics the graphics to draw .
 	 */
 	public  void drawApple(Graphics g){
+		
+		//getting the point values .
+		ContentSize sizes =ContentSize.getInfo();
+		int point = sizes.getPoint();
+				
 		g.setColor(Color.blue);
-		g.fillOval(x,y,ContentSize.getInfo().getPoint() , ContentSize.getInfo().getPoint());
+		g.fillOval(x,y,point , point );
+	
 	}
 	
 	

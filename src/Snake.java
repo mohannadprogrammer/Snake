@@ -15,8 +15,8 @@ public class Snake {
 	private boolean isMoveLeft = false;
 	
 	//snake pause mode and die mode .
-	public boolean alive =true;
-	public boolean pause=false;
+	private boolean alive =true;
+	private boolean pause=false;
 	
 	//the maximum x , and y that thw sanke can retch to . 
 	private  final int BIGX = ContentSize.getInfo().getPoint() * 20;
@@ -33,6 +33,30 @@ public class Snake {
 		getDefaultLocation();
 		setApple( diedPointX , diedPointY );
 		
+	}
+	/**
+	 * @return the alive
+	 */
+	public boolean isAlive() {
+		return alive;
+	}
+	/**
+	 * @param alive the alive to set
+	 */
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+	/**
+	 * @return the pause
+	 */
+	public boolean isPause() {
+		return pause;
+	}
+	/**
+	 * @param pause the pause to set
+	 */
+	public void setPause(boolean pause) {
+		this.pause = pause;
 	}
 	//method set the default location of snake in the game .
 	public void getDefaultLocation (){

@@ -80,6 +80,9 @@ public  class Apple  {
 	
 	}
 
+	/**
+	 * @param Graphics the graphics to draw .
+	 */
 	public  void drawApple(Graphics g){
 		g.setColor(Color.blue);
 		g.fillOval(x,y,ContentSize.getInfo().getPoint() , ContentSize.getInfo().getPoint());

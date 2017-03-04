@@ -15,11 +15,11 @@ import java.util.ArrayList;
  */
 public class MainWindow extends JFrame {
 	
-	private JLabel gameContent;// label to hold the game content .
+	private JLabel game_content;// label to hold the game content .
 	private GameLand land;// object of the land game .
 	
 	private String explenation;//explenation string explene the score and describe how to play.
-	private JLabel showScore;//lable hold the explanation string .
+	private JLabel show_score;//lable hold the explanation string .
 	
 	private Container container;
 	
@@ -51,7 +51,7 @@ public class MainWindow extends JFrame {
 	 * method draw start window hold the main menu .
 	 * */
 	  void startWindow() { 
-		  gameContent = new JLabel();
+		  game_content = new JLabel();
 		  
 		  //set the buttons .
 		  button[0] = new JButton("new Game");
@@ -66,9 +66,9 @@ public class MainWindow extends JFrame {
 		  	button[i].setSize(120, 30);
 	  		y += 35;
 	  		button[i].addActionListener(new Handler());
-	  		gameContent.add(button[i]); 
+	  		game_content.add(button[i]); 
 		  } 
-		  container.add(gameContent);
+		  container.add(game_content);
 	  
 	  }
 	  /*
@@ -81,7 +81,7 @@ public class MainWindow extends JFrame {
 	  public void actionPerformed(ActionEvent e) { // TODOAuto-generated method stub
 		 if (e.getSource() == button[0]) {
 			//begen new game . 
-			 gameContent.setVisible(false);
+			 game_content.setVisible(false);
 			 setFocusable(false);
 			 land = new GameLand();
 			 gameWindow(); 
@@ -89,7 +89,7 @@ public class MainWindow extends JFrame {
 	  		} 
 		  if(e.getSource() == button[1]) { 
 			  
-			  gameContent.setVisible(false);//removet the start windiw 
+			  game_content.setVisible(false);//removet the start windiw 
 			  //load the game window .
 			  setFocusable(false);
 			  gameWindow();
@@ -110,20 +110,20 @@ public class MainWindow extends JFrame {
 	void gameWindow() {
 		setFocusable(true);
 		container = getContentPane();
-		gameContent = new JLabel();
-		container.add(gameContent);
-		gameContent.setVisible(false);
-		gameContent = new JLabel(new ImageIcon("image" + "\\gameback.jpg"));
+		game_content = new JLabel();
+		container.add(game_content);
+		game_content.setVisible(false);
+		game_content = new JLabel(new ImageIcon("image" + "\\gameback.jpg"));
 		
 		explenation = "<html>score :" 
 						+ land.getScore() 
 						+ "<br>move the snake : (use diracton keys )"
 						+ "<br> press space to pause and resume</html> ";
-		showScore = new JLabel(explenation);
+		show_score = new JLabel(explenation);
 
 		// show Score
-		showScore.setLocation(950, 500);
-		showScore.setSize(120, 120);
+		show_score.setLocation(950, 500);
+		show_score.setSize(120, 120);
 		
 		//handle the keyboard action .
 		addKeyListener(new KeyAdapter() {
@@ -166,7 +166,7 @@ public class MainWindow extends JFrame {
 						}else{
 							
 							//back to main meun.
-							gameContent.setVisible(false);
+							game_content.setVisible(false);
 							startWindow();
 						
 						}
@@ -182,17 +182,17 @@ public class MainWindow extends JFrame {
 							+ land.getScore() 
 							+ "<per><br>move the snake:(use diracton keys )"
 							+ "<br> press space to pause and resume</html> ";
-				showScore.setText(explenation);
+				show_score.setText(explenation);
 			}
 		});
 
 		reShow.start();// start show the explanation string .
 		
 		//add the set content .
-		gameContent.add(showScore);
-		gameContent.add(land);
+		game_content.add(show_score);
+		game_content.add(land);
 		//add the game content to the window 
-		container.add(gameContent);
+		container.add(game_content);
 	}
 
 }
